@@ -6,6 +6,10 @@
     <meta property="og:title" content="LA BELLE ÉTOILE | Chalet d'exception au Grand-Bornand">
     <meta property="og:description" content="Découvrez un séjour inoubliable dans notre chalet de luxe. Vue panoramique et confort moderne.">
     <meta property="og:image" content="https://a0.muscache.com/im/pictures/hosting/Hosting-U3RheVN1cHBseUxpc3Rpbmc6ODM4MTU2NzMxNzQyMzk4NTU1/original/a94fd0ca-7574-405e-9868-9e2ac96632c3.jpeg?im_w=1440">
+    <meta property="og:url" content="https://votre-site-web.com">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://a0.muscache.com/im/pictures/hosting/Hosting-U3RheVN1cHBseUxpc3Rpbmc6ODM4MTU2NzMxNzQyMzk4NTU1/original/a94fd0ca-7574-405e-9868-9e2ac96632c3.jpeg?im_w=1440">
     <title>LA BELLE ÉTOILE | Chalet d'exception Le Grand-Bornand</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -19,6 +23,12 @@
             --beige: #F5F5DC;
             --blanc-neige: #F8F9FA;
             --noir-douceur: #2C2C2C;
+            --fc-border-color: #eee;
+            --fc-today-bg-color: #fcf8e3;
+            --fc-button-bg-color: #D4AF37;
+            --fc-button-border-color: #D4AF37;
+            --fc-button-hover-bg-color: #b8952d;
+            --fc-button-active-bg-color: #b8952d;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -37,7 +47,7 @@
         .hero {
             height: 100vh;
             background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), 
-                        url('https://a0.muscache.com/im/pictures/hosting/Hosting-U3RheVN1cHBseUxpc3Rpbmc6ODM4MTU2NzMxNzQyMzk4NTU1/original/a94fd0ca-7574-405e-9868-9e2ac96632c3.jpeg?im_w=1440');
+                        url('https://a0.muscache.com/im/pictures/hosting/Hosting-U3RheVN1cHBseUxpc3Rpbmc6ODM4MTU2NzMxNzQyMzk4NTU1/original/a94fd0ca-7574-405e-9868-9e2ac96632c3.jpeg?im_w=1440'); /* Image de remplacement chalet */
             background-size: cover;
             background-position: center;
             display: flex;
@@ -51,6 +61,7 @@
 
         .hero h1 { font-size: 4rem; letter-spacing: 5px; margin-bottom: 10px; }
         .hero p { font-size: 1.5rem; font-weight: 300; margin-bottom: 30px; }
+        
         .rating { color: var(--or); margin-bottom: 20px; font-size: 1.2rem; }
 
         .btn-cta {
@@ -66,8 +77,15 @@
         }
 
         .btn-cta:hover { background-color: white; color: var(--or); transform: translateY(-3px); }
-        
-        
+
+        /* --- SECTIONS GÉNÉRALES --- */
+        section { padding: 80px 10%; }
+        .section-title { text-align: center; margin-bottom: 50px; font-size: 2.5rem; }
+        .section-title::after {
+            content: ""; display: block; width: 60px; height: 3px; background: var(--or); margin: 15px auto;
+        }
+
+        /* --- PRÉSENTATION & POINTS FORTS --- */
         .intro-text { text-align: center; max-width: 800px; margin: 0 auto 60px; font-size: 1.1rem; }
 
         .grid-highlights {
@@ -88,15 +106,7 @@
         .highlight-card i { font-size: 2.5rem; color: var(--or); margin-bottom: 20px; }
         .highlight-card:hover { transform: translateY(-10px); }
 
-
-        /* --- SECTIONS --- */
-        section { padding: 80px 10%; }
-        .section-title { text-align: center; margin-bottom: 50px; font-size: 2.5rem; }
-        .section-title::after {
-            content: ""; display: block; width: 60px; height: 3px; background: var(--or); margin: 15px auto;
-        }
-
-        /* --- GALERIE FILTRABLE --- */
+        /* --- GALERIE --- */
         .filter-container { display: flex; justify-content: center; gap: 15px; margin-bottom: 40px; flex-wrap: wrap; }
         .filter-btn {
             padding: 10px 25px; border: 2px solid var(--or); background: transparent;
@@ -109,27 +119,71 @@
         .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; }
         .gallery-item:hover img { transform: scale(1.1); }
 
-        /* --- CALENDRIER --- */
-        .calendar-container {
-            max-width: 900px; margin: 0 auto; background: white; padding: 20px;
-            border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-        }
-        .iframe-wrapper { position: relative; padding-bottom: 75%; height: 0; overflow: hidden; border-radius: 10px; }
-        .iframe-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
+        .gallery-item:hover img { transform: scale(1.1); }
 
-        /* --- CONTACT & MAP --- */
+        /* --- AVIS --- */
+        .testimonials { background-color: #f0ede9; }
+        .testimonial-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+        .card-review { background: white; padding: 30px; border-radius: 15px; position: relative; }
+        .stars { color: var(--or); margin-bottom: 10px; }
+        .author { font-weight: bold; margin-top: 15px; display: block; color: var(--bois); }
+
+        /* --- LOCALISATION & CONTACT --- */
         .contact-box {
-            background: white; padding: 50px; border-radius: 20px;
-            text-align: center; box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+            background: linear-gradient(rgba(255,255,255,0.9), rgba(255,255,255,0.9)), url('https://www.transparenttextures.com/patterns/wood-pattern.png');
+            padding: 50px;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
         }
+
         .map-container { margin-bottom: 30px; border-radius: 15px; overflow: hidden; height: 300px; }
+        
+        .contact-btns { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin-top: 20px; }
+        
         .btn-contact {
-            padding: 12px 30px; border: 2px solid var(--or); color: var(--or);
-            text-decoration: none; border-radius: 5px; font-weight: 600; transition: 0.3s;
+            padding: 12px 30px;
+            border: 2px solid var(--or);
+            color: var(--or);
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: 600;
+            transition: 0.3s;
         }
+
         .btn-contact.primary { background: var(--or); color: white; }
 
-        @media (max-width: 768px) { .hero h1 { font-size: 2.5rem; } section { padding: 50px 5%; } }
+        /* --- RESPONSIVE --- */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.5rem; }
+            section { padding: 50px 5%; }
+        }
+        /* Ajustement de la taille du calendrier pour mobile */
+    #calendar {
+        max-width: 100%;
+        margin: 0 auto;
+        font-size: 0.9rem; /* Texte légèrement plus petit sur mobile */
+    }
+
+    /* Style des événements occupés */
+    .booked-event { 
+        text-decoration: line-through; 
+        color: white !important; 
+        background-color: var(--or) !important; 
+        border: none !important;
+        font-size: 0.75rem;
+        padding: 2px 5px;
+    }
+
+    /* Force le calendrier à ne pas dépasser sur mobile */
+    @media (max-width: 768px) {
+        #calendar-container { padding: 10px; }
+        .fc-header-toolbar { 
+            flex-direction: column; 
+            gap: 10px; 
+        }
+        .fc-toolbar-title { font-size: 1.2rem !important; }
+    }
     </style>
 </head>
 <body>
@@ -138,9 +192,9 @@
         <div class="rating">⭐⭐⭐⭐⭐ <span style="color: white; font-weight: 300;">5,0 étoile</span></div>
         <h1>LA BELLE ÉTOILE</h1>
         <p>Chalet d’exception au cœur du Grand-Bornand</p>
-        <a href="#calendrier" class="btn-cta">Vérifier les dates</a>
+        <a href="#reservation" class="btn-cta">Réserver maintenant</a>
     </header>
-    
+
     <section>
         <h2 class="section-title">L'Expérience Alpine</h2>
         <p class="intro-text">
@@ -182,7 +236,7 @@
             <div class="gallery-item exterieur"><img src="https://a0.muscache.com/im/pictures/hosting/Hosting-U3RheVN1cHBseUxpc3Rpbmc6ODM4MTU2NzMxNzQyMzk4NTU1/original/4df0a755-6a96-4e6f-a3b4-cc1ee0189eb0.jpeg?im_w=1440" alt="Architecture"></div>
         </div>
     </section>
-
+    
     <section id="disponibilites" style="background-color: white;">
     <h2 class="section-title">Disponibilités</h2>
     <div id="calendar-container" style="max-width: 900px; margin: 0 auto; background: white; padding: 20px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
@@ -198,39 +252,89 @@
     </div>
 </section>
 
-<style>
-    /* Personnalisation du calendrier pour coller à ton luxe doré */
-    :root {
-        --fc-border-color: #eee;
-        --fc-today-bg-color: #fcf8e3;
-        --fc-button-bg-color: #D4AF37;
-        --fc-button-border-color: #D4AF37;
-        --fc-button-hover-bg-color: #b8952d;
-        --fc-button-active-bg-color: #b8952d;
-    }
-    .fc-event-title { font-weight: 600; text-transform: uppercase; font-size: 0.7rem; }
-    .fc-v-event { background-color: var(--or); border: none; opacity: 0.5; }
-    .fc-h-event { background-color: var(--or); border: none; opacity: 0.5; }
-    /* Barre les jours occupés */
-    .booked-event { text-decoration: line-through; color: #777; background-color: #D4AF37 !important; border: none !important; }
-</style>
+    <section class="testimonials">
+        <h2 class="section-title">Ce que nos hôtes disent</h2>
+        <div class="testimonial-grid">
+            <div class="card-review">
+                <div class="stars">★★★★★</div>
+                <p>"Le chalet est magnifique, très bien entretenu et idéalement situé. La vue sur les montagnes est extra !"</p>
+                <span class="author">Thaïs Du Ché</span>
+            </div>
+            <div class="card-review">
+                <div class="stars">★★★★★</div>
+                <p>"Nous sommes partis entre amis et avons adoré notre séjour. Convivial, fonctionnel et parfaitement pensé."</p>
+                <span class="author">Laura Blancbrude</span>
+            </div>
+            <div class="card-review">
+                <div class="stars">★★★★★</div>
+                <p>"Séjour absolument magnifique. Charme authentique mêlant tradition montagnarde et confort moderne."</p>
+                <span class="author">Léo Cavard</span>
+            </div>
+        </div>
+    </section>
 
-<script>
-document.addEventListener('DOMContentLoaded', function() {
+    <section id="localisation">
+        <h2 class="section-title">Localisation</h2>
+        <div class="contact-box">
+            <p style="margin-bottom: 20px;"><i class="fas fa-map-marker-alt" style="color: var(--or);"></i> 859 Route de Samance, 74450 Le Grand-Bornand</p>
+            <div class="map-container">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2772.757919184845!2d6.451262589187077!3d45.97609442459916!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x478bf79a5f6eb389%3A0xaf51c875a270928e!2sLA%20BELLE%20ETOILE!5e0!3m2!1sfr!2sfr!4v1771520091773!5m2!1sfr!2sfr" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+            </div>
+            <a href="https://www.google.com/maps/place/LA+BELLE+ETOILE/@45.9765172,6.4544884,17.32z/data=!4m6!3m5!1s0x478bf79a5f6eb389:0xaf51c875a270928e!8m2!3d45.9760908!4d6.4561335!16s%2Fg%2F11yr_129m9?hl=fr&entry=ttu&g_ep=EgoyMDI2MDIxNi4wIKXMDSoASAFQAw%3D%3D" target="_blank" class="btn-contact">Voir l’itinéraire</a>
+        </div>
+    </section>
+
+    <section id="reservation" style="padding-bottom: 100px;">
+        <div class="contact-box" style="background-color: white;">
+            <h2 style="font-family: 'Playfair Display'; font-size: 2rem;">Prêt pour une évasion étoilée ?</h2>
+            <p style="margin-top: 10px;">Contactez-nous directement pour obtenir les meilleures disponibilités.</p>
+            <div class="contact-btns">
+                <a href="tel:0624431156" class="btn-contact primary"><i class="fas fa-phone"></i> Appeler (06 24 43 11 56)</a>
+                <a href="mailto:contact@labelleetoile.com" class="btn-contact"><i class="far fa-calendar-check"></i> Demande de réservation</a>
+            </div>
+        </div>
+    </section>
+    
+    <script>
+        function filterGallery(category) {
+            const items = document.querySelectorAll('.gallery-item');
+            const btns = document.querySelectorAll('.filter-btn');
+            btns.forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.getAttribute('onclick').includes(category)) btn.classList.add('active');
+            });
+            items.forEach(item => {
+                if (category === 'all' || item.classList.contains(category)) item.classList.remove('hide');
+                else item.classList.add('hide');
+            });
+        }
+        
+        document.addEventListener('DOMContentLoaded', function() {
     var calendarEl = document.getElementById('calendar');
     var calendar = new FullCalendar.Calendar(calendarEl, {
-        initialView: 'dayGridMonth',
+        initialView: window.innerWidth < 768 ? 'listMonth' : 'dayGridMonth', // Vue liste sur mobile, Grille sur PC
         locale: 'fr',
+        handleWindowResize: true,
+        height: 'auto', // S'adapte au contenu
         headerToolbar: {
             left: 'prev,next today',
-            center: 'title',
-            right: ''
+            center: '',
+            right: 'title'
         },
         buttonText: { today: "Aujourd'hui" },
+        
+        // Redimensionnement dynamique si on tourne le téléphone
+        windowResize: function(view) {
+            if (window.innerWidth < 768) {
+                calendar.changeView('listMonth');
+            } else {
+                calendar.changeView('dayGridMonth');
+            }
+        },
+
         events: async function(info, successCallback, failureCallback) {
             try {
-                // Ton lien Airbnb via un proxy gratuit pour éviter les blocages
-                const icalUrl = 'https://www.airbnb.fr/calendar/ical/1290994820482311065.ics?t=cb4f1c18c9064806bac8afef013bcbda';
+                const icalUrl = 'https://www.airbnb.fr/calendar/ical/838156731742398555.ics';
                 const proxyUrl = 'https://corsproxy.io/?' + encodeURIComponent(icalUrl);
                 
                 const response = await fetch(proxyUrl);
@@ -242,7 +346,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 const events = vevents.map(vevent => {
                     const event = new ICAL.Event(vevent);
                     return {
-                        title: 'RESERVÉ',
+                        title: 'OCCUPÉ',
                         start: event.startDate.toString(),
                         end: event.endDate.toString(),
                         allDay: true,
@@ -258,43 +362,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     calendar.render();
 });
-</script>
-
-    <section id="localisation">
-        <h2 class="section-title">Localisation</h2>
-        <div class="contact-box">
-            <p style="margin-bottom: 20px;"><i class="fas fa-map-marker-alt" style="color: var(--or);"></i> 859 Route de Samance, 74450 Le Grand-Bornand</p>
-            <div class="map-container">
-                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2774.2483100652614!2d6.435!3d45.94!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47895476a6e55555%3A0x0!2zNDXCsDU2JzI0LjAiTiA2wrAyNicwNi4wIkU!5e0!3m2!1sfr!2sfr!4v1625000000000" width="100%" height="100%" style="border:0;" loading="lazy"></iframe>
-            </div>
-            <a href="https://www.google.com/maps/place/LA+BELLE+ETOILE/@45.9765172,6.4544884,17.32z/data=!4m6!3m5!1s0x478bf79a5f6eb389:0xaf51c875a270928e!8m2!3d45.9760908!4d6.4561335!16s%2Fg%2F11yr_129m9?hl=fr&entry=ttu&g_ep=EgoyMDI2MDIxNi4wIKXMDSoASAFQAw%3D%3D" target="_blank" class="btn-contact">Voir l’itinéraire</a>
-        </div>
-    </section>
-
-    <section id="reservation" style="padding-bottom: 100px;">
-        <div class="contact-box" style="background-color: white;">
-            <h2 style="font-family: 'Playfair Display'; font-size: 2rem;">Prêt pour une évasion étoilée ?</h2>
-            <p style="margin-top: 10px;">Contactez-nous directement pour obtenir les meilleures disponibilités.</p> <br>
-            <div class="contact-btns">
-                <a href="tel:0624431156" class="btn-contact primary"><i class="fas fa-phone"></i> Appeler (06 24 43 11 56)</a>
-                <a href="mailto:contact@labelleetoile.com" class="btn-contact"><i class="far fa-calendar-check"></i> Demande de réservation</a>
-            </div>
-        </div>
-    </section>
-
-    <script>
-        function filterGallery(category) {
-            const items = document.querySelectorAll('.gallery-item');
-            const btns = document.querySelectorAll('.filter-btn');
-            btns.forEach(btn => {
-                btn.classList.remove('active');
-                if (btn.getAttribute('onclick').includes(category)) btn.classList.add('active');
-            });
-            items.forEach(item => {
-                if (category === 'all' || item.classList.contains(category)) item.classList.remove('hide');
-                else item.classList.add('hide');
-            });
-        }
     </script>
 
 </body>
