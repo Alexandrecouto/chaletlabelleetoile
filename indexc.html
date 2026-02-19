@@ -311,25 +311,31 @@
         
         document.addEventListener('DOMContentLoaded', function() {
     var calendarEl = document.getElementById('calendar');
+    
     var calendar = new FullCalendar.Calendar(calendarEl, {
-        initialView: window.innerWidth < 768 ? 'listMonth' : 'dayGridMonth', // Vue liste sur mobile, Grille sur PC
+        // Détermine la vue initiale immédiatement
+        initialView: window.innerWidth < 768 ? 'listMonth' : 'dayGridMonth',
         locale: 'fr',
         handleWindowResize: true,
-        height: 'auto', // S'adapte au contenu
+        height: 'auto', 
+        aspectRatio: window.innerWidth < 768 ? 0.8 : 1.35, // Plus haut que large sur mobile
         headerToolbar: {
-            left: 'prev,next today',
-            center: '',
-            right: 'title'
+            left: 'prev,next',
+            center: 'title',
+            right: 'today'
         },
         buttonText: { today: "Aujourd'hui" },
         
-        // Redimensionnement dynamique si on tourne le téléphone
         windowResize: function(view) {
+            // Basculement dynamique si on tourne le téléphone
             if (window.innerWidth < 768) {
                 calendar.changeView('listMonth');
+                calendar.setOption('aspectRatio', 0.8);
             } else {
                 calendar.changeView('dayGridMonth');
+                calendar.setOption('aspectRatio', 1.35);
             }
+            calendar.updateSize();
         },
 
         events: async function(info, successCallback, failureCallback) {
@@ -338,6 +344,8 @@
                 const proxyUrl = 'https://corsproxy.io/?' + encodeURIComponent(icalUrl);
                 
                 const response = await fetch(proxyUrl);
+                if (!response.ok) throw new Error('Erreur réseau');
+                
                 const data = await response.text();
                 const jcalData = ICAL.parse(data);
                 const comp = new ICAL.Component(jcalData);
@@ -362,6 +370,20 @@
     });
     calendar.render();
 });
+
+// Ta fonction de galerie reste inchangée
+function filterGallery(category) {
+    const items = document.querySelectorAll('.gallery-item');
+    const btns = document.querySelectorAll('.filter-btn');
+    btns.forEach(btn => {
+        btn.classList.remove('active');
+        if (btn.getAttribute('onclick').includes(category)) btn.classList.add('active');
+    });
+    items.forEach(item => {
+        if (category === 'all' || item.classList.contains(category)) item.classList.remove('hide');
+        else item.classList.add('hide');
+    });
+}
     </script>
 
 </body>
