@@ -225,23 +225,23 @@
 
     <section style="background-color: white;">
         <h2 class="section-title">Le Chalet en images</h2>
-        <div class="filter-container">
-            <button class="filter-btn active" onclick="filterGallery('all')">Tout voir</button>
-            <button class="filter-btn" onclick="filterGallery('edv')">Espace de vie</button>
-            <button class="filter-btn" onclick="filterGallery('ext')">Extérieur</button>
-            <button class="filter-btn" onclick="filterGallery('chb')">Chambre</button>
-        </div>
-        <div class="gallery">
-            <div class="gallery-item salon"><img src="./image/ext/1-Vue.jpeg" alt="ext"></div>
-            <div class="gallery-item salon"><img src="./image/ext/2-Chaletnord.jpeg" alt="ext"></div>
-            <div class="gallery-item salon"><img src="./image/ext/4-vue.jpg" alt="ext"></div>
-            <div class="gallery-item salon"><img src="./image/ext/6-Chaletdenuit1.jpeg" alt="ext"></div>
-            <div class="gallery-item salon"><img src="./image/ext/46-Accèshiver.jpeg" alt="ext"></div>
-            <div class="gallery-item salon"><img src="./image/ext/48-Vuedrone.JPG"></div>
-            <div class="gallery-item salon"><img src="./image/"></div>
-            <div class="gallery-item exterieur"><img src="" alt="Intérieur"></div>
-            <div class="gallery-item exterieur"><img src="" alt="Architecture"></div>
-        </div>
+        <<div class="filter-container">
+        <button class="filter-btn active" onclick="filterGallery('all')">Tout voir</button>
+        <button class="filter-btn" onclick="filterGallery('edv')">Espace de vie</button>
+        <button class="filter-btn" onclick="filterGallery('ext')">Extérieur</button>
+        <button class="filter-btn" onclick="filterGallery('chb')">Chambre</button>
+    </div>
+
+    <div class="gallery">
+        <div class="gallery-item ext"><img src="./image/ext/1-Vue.jpeg" alt="ext"></div>
+        <div class="gallery-item ext"><img src="./image/ext/2-Chaletnord.jpeg" alt="ext"></div>
+        <div class="gallery-item ext"><img src="./image/ext/4-vue.jpg" alt="ext"></div>
+        <div class="gallery-item ext"><img src="./image/ext/6-Chaletdenuit1.jpeg" alt="ext"></div>
+        <div class="gallery-item ext"><img src="./image/ext/46-Accèshiver.jpeg" alt="ext"></div>
+        <div class="gallery-item ext"><img src="./image/ext/48-Vuedrone.JPG" alt="ext"></div>
+        <div class="gallery-item edv"><img src="./image/interieur1.jpg" alt="Espace de vie"></div>
+        <div class="gallery-item chb"><img src="./image/chambre1.jpg" alt="Chambre"></div>
+    </div>
     </section>
     
     <section id="disponibilites" style="background-color: white;">
@@ -303,18 +303,43 @@
     </section>
     
     <script>
-        function filterGallery(category) {
-            const items = document.querySelectorAll('.gallery-item');
-            const btns = document.querySelectorAll('.filter-btn');
-            btns.forEach(btn => {
-                btn.classList.remove('active');
-                if (btn.getAttribute('onclick').includes(category)) btn.classList.add('active');
-            });
-            items.forEach(item => {
-                if (category === 'all' || item.classList.contains(category)) item.classList.remove('hide');
-                else item.classList.add('hide');
-            });
+function filterGallery(category) {
+    const items = document.querySelectorAll('.gallery-item');
+    const btns = document.querySelectorAll('.filter-btn');
+    
+    // 1. Gestion de l'état "actif" des boutons
+    btns.forEach(btn => {
+        btn.classList.remove('active');
+        // On vérifie si le texte du bouton ou son onclick correspond
+        if (btn.getAttribute('onclick').includes(`'${category}'`)) {
+            btn.classList.add('active');
         }
+    });
+
+    // 2. Filtrage des images
+    let count = 0; // Compteur pour limiter à 6
+    
+    items.forEach(item => {
+        // Condition pour afficher :
+        // Soit la catégorie correspond
+        // Soit c'est 'all' ET on n'a pas encore dépassé 6 images
+        if (category === 'all') {
+            if (count < 6) {
+                item.classList.remove('hide');
+                count++;
+            } else {
+                item.classList.add('hide');
+            }
+        } else if (item.classList.contains(category)) {
+            item.classList.remove('hide');
+        } else {
+            item.classList.add('hide');
+        }
+    });
+}
+
+// Optionnel : Lancer le filtre au chargement pour appliquer la limite de 6
+window.onload = () => filterGallery('all');
         
 document.addEventListener('DOMContentLoaded', function() {
     var calendarEl = document.getElementById('calendar');
