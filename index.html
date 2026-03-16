@@ -370,14 +370,14 @@
     // 2. Logique de filtrage "Valise" (Sélection précise)
     items.forEach(item => {
         if (category === 'all') {
-            // On vérifie si l'item a le marqueur "data-selection"
+            // SI on est dans "Tout voir", on ne garde que les favoris
             if (item.getAttribute('data-selection') === 'true') {
                 item.classList.remove('hide');
             } else {
                 item.classList.add('hide');
             }
         } else {
-            // Logique classique par catégorie
+            // SINON, on affiche selon la catégorie (ex: 'ext', 'edv')
             if (item.classList.contains(category)) {
                 item.classList.remove('hide');
             } else {
