@@ -107,16 +107,44 @@
         .highlight-card:hover { transform: translateY(-10px); }
 
         /* --- GALERIE --- */
-        .filter-container { display: flex; justify-content: center; gap: 15px; margin-bottom: 40px; flex-wrap: wrap; }
+        .filter-container { 
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
         .filter-btn {
             padding: 10px 25px; border: 2px solid var(--or); background: transparent;
-            color: var(--or); cursor: pointer; border-radius: 30px; font-weight: 600; transition: 0.3s;
+            color: var(--or);
+            cursor: pointer;
+            border-radius: 30px;
+            font-weight: 600;
+            transition: 0.3s;
         }
-        .filter-btn.active, .filter-btn:hover { background: var(--or); color: white; }
-        .gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 15px; }
-        .gallery-item { height: 250px; overflow: hidden; border-radius: 10px; transition: 0.4s ease; }
-        .gallery-item.hide { display: none; }
-        .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; }
+        .filter-btn.active, .filter-btn:hover { 
+            background: var(--or);
+            color: white; 
+        }
+        .gallery { 
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 15px; 
+        }
+        .gallery-item { 
+                height: 250px;
+                overflow: hidden; border-radius: 10px;
+                transition: 0.4s ease; 
+        }
+        .gallery-item.hide { 
+                display: none; 
+        }
+        .gallery-item img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                transition: 0.5s; 
+        }
         .gallery-item:hover img { transform: scale(1.1); }
 
         .gallery-item:hover img { transform: scale(1.1); }
@@ -224,8 +252,8 @@
     </section>
 
     <section style="background-color: white;">
-        <h2 class="section-title">Le Chalet en images</h2>
-        <<div class="filter-container">
+        <h2 class="section-title">Le Chalet en images</h2> 1
+        <div class="filter-container">
         <button class="filter-btn active" onclick="filterGallery('all')">Tout voir</button>
         <button class="filter-btn" onclick="filterGallery('edv')">Espace de vie</button>
         <button class="filter-btn" onclick="filterGallery('ext')">Extérieur</button>
@@ -303,72 +331,79 @@
     </section>
     
     <script>
-function filterGallery(category) {
-    const items = document.querySelectorAll('.gallery-item');
-    const btns = document.querySelectorAll('.filter-btn');
+        document.addEventListener('DOMContentLoaded', function() {
     
-    // 1. Gestion de l'état "actif" des boutons
-    btns.forEach(btn => {
-        btn.classList.remove('active');
-        // On vérifie si le texte du bouton ou son onclick correspond
-        if (btn.getAttribute('onclick').includes(`'${category}'`)) {
-            btn.classList.add('active');
-        }
-    });
-
-    // 2. Filtrage des images
-    let count = 0; // Compteur pour limiter à 6
-    
-    items.forEach(item => {
-        // Condition pour afficher :
-        // Soit la catégorie correspond
-        // Soit c'est 'all' ET on n'a pas encore dépassé 6 images
-        if (category === 'all') {
-            if (count < 6) {
-                item.classList.remove('hide');
-                count++;
-            } else {
-                item.classList.add('hide');
-            }
-        } else if (item.classList.contains(category)) {
-            item.classList.remove('hide');
-        } else {
-            item.classList.add('hide');
-        }
-    });
-}
-
-// Optionnel : Lancer le filtre au chargement pour appliquer la limite de 6
-window.onload = () => filterGallery('all');
+    // --- PARTIE 1 : GALERIE DE FILTRES ---
+    window.filterGallery = function(category) { // On attache à window pour que le onclick HTML le trouve
+        const items = document.querySelectorAll('.gallery-item');
+        const btns = document.querySelectorAll('.filter-btn');
         
-document.addEventListener('DOMContentLoaded', function() {
+        // 1. Gestion de l'état "actif" des boutons
+        btns.forEach(btn => {
+            btn.classList.remove('active');
+            // Vérification plus robuste de l'attribut onclick
+            const clickAttr = btn.getAttribute('onclick') || "";
+            if (clickAttr.includes(`'${category}'`)) {
+                btn.classList.add('active');
+            }
+        });
+
+        // 2. Filtrage des images avec limite de 6 pour 'all'
+        let count = 0;
+        items.forEach(item => {
+            if (category === 'all') {
+                if (count < 6) {
+                    item.classList.remove('hide');
+                    count++;
+                } else {
+                    item.classList.add('hide');
+                }
+            } else {
+                // Si la catégorie correspond, on affiche, sinon on cache
+                if (item.classList.contains(category)) {
+                    item.classList.remove('hide');
+                } else {
+                    item.classList.add('hide');
+                }
+            }
+        });
+    };
+
+    // Initialisation de la galerie au chargement (affiche 6 photos)
+    filterGallery('all');
+
+    // --- PARTIE 2 : CALENDRIER ---
     var calendarEl = document.getElementById('calendar');
     
-    var calendar = new FullCalendar.Calendar(calendarEl, {
-        // Détermine la vue initiale immédiatement
-        initialView: window.innerWidth < 768 ? 'listMonth' : 'dayGridMonth',
-        locale: 'fr',
-        handleWindowResize: true,
-        height: 'auto', 
-        aspectRatio: window.innerWidth < 768 ? 0.8 : 1.35, // Plus haut que large sur mobile
-        headerToolbar: {
-            left: 'prev,next today',
-            center: '',
-            right: 'title'
-        },
-        buttonText: { today: "Aujourd'hui" },
-        
-        windowResize: function(view) {
-            // Basculement dynamique si on tourne le téléphone
-            if (window.innerWidth < 768) {
-                calendar.changeView('listMonth');
-                calendar.setOption('aspectRatio', 0.8);
-            } else {
-                calendar.changeView('dayGridMonth');
-                calendar.setOption('aspectRatio', 1.35);
+    if (calendarEl) { // On vérifie que l'élément existe pour éviter les erreurs
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+            initialView: window.innerWidth < 768 ? 'listMonth' : 'dayGridMonth',
+            locale: 'fr',
+            handleWindowResize: true,
+            height: 'auto', 
+            aspectRatio: window.innerWidth < 768 ? 0.8 : 1.35,
+            headerToolbar: {
+                left: 'prev,next today',
+                center: '',
+                right: 'title'
+            },
+            buttonText: { today: "Aujourd'hui" },
+            
+            windowResize: function(arg) { // FullCalendar passe un argument ici
+                if (window.innerWidth < 768) {
+                    calendar.changeView('listMonth');
+                    calendar.setOption('aspectRatio', 0.8);
+                } else {
+                    calendar.changeView('dayGridMonth');
+                    calendar.setOption('aspectRatio', 1.35);
+                }
+                calendar.updateSize();
             }
-            calendar.updateSize();
-        },
+        });
+
+        calendar.render();
+    }
+});
 
         events: async function(info, successCallback, failureCallback) {
             try {
