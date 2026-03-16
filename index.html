@@ -355,11 +355,11 @@
     </section>
     
     <script>
-       function filterGallery(category) {
+function filterGallery(category) {
     const items = document.querySelectorAll('.gallery-item');
     const btns = document.querySelectorAll('.filter-btn');
     
-    // 1. Gestion des boutons actifs
+    // 1. Mise à jour visuelle des boutons
     btns.forEach(btn => {
         btn.classList.remove('active');
         if (btn.getAttribute('onclick').includes(`'${category}'`)) {
@@ -367,7 +367,7 @@
         }
     });
 
-    // 2. Logique de filtrage "Valise" (Sélection précise)
+    // 2. Logique de filtrage
     items.forEach(item => {
         if (category === 'all') {
             // SI on est dans "Tout voir", on ne garde que les favoris
