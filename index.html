@@ -127,17 +127,19 @@
             color: white; 
         }
         .gallery { 
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 15px; 
-        }
+        display: grid;
+        /* auto-fill est souvent mieux que auto-fit pour éviter que les 
+           photos ne deviennent géantes s'il n'y en a que deux */
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 15px; 
+    }
         .gallery-item { 
                 height: 250px;
                 overflow: hidden; border-radius: 10px;
                 transition: 0.4s ease; 
         }
-        .gallery-item.hide { 
-                display: none; 
+        .gallery-item.hide {
+                display: none !important; 
         }
         .gallery-item img {
                 width: 100%;
