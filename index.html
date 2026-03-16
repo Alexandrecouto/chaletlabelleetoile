@@ -126,29 +126,33 @@
             background: var(--or);
             color: white; 
         }
-        .gallery { 
-        display: grid;
-        /* auto-fill est souvent mieux que auto-fit pour éviter que les 
-           photos ne deviennent géantes s'il n'y en a que deux */
-        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-        gap: 15px; 
-    }
-        .gallery-item { 
-                height: 250px;
-                overflow: hidden; border-radius: 10px;
-                transition: 0.4s ease; 
-        }
-        .gallery-item.hide {
-                display: none !important; 
-        }
-        .gallery-item img {
-                width: 100%;
-                height: 100%;
-                object-fit: cover;
-                transition: 0.5s; 
-        }
-        .gallery-item:hover img { transform: scale(1.1); }
 
+        .gallery { 
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 15px; 
+        }
+        
+        /* 1. On cache TOUT par défaut immédiatement */
+        .gallery-item { 
+            display: none; /* L'élément ne prend pas de place et est invisible */
+            height: 250px;
+            overflow: hidden; 
+            border-radius: 10px;
+            transition: 0.4s ease; 
+        }
+        
+        /* 2. On crée une classe pour AFFICHER */
+        .gallery-item.show {
+            display: block; /* Devient visible quand le JS le décide */
+        }
+        
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: 0.5s; 
+        }
         .gallery-item:hover img { transform: scale(1.1); }
 
         /* --- AVIS --- */
@@ -355,11 +359,11 @@
     </section>
     
     <script>
-function filterGallery(category) {
+    function filterGallery(category) {
     const items = document.querySelectorAll('.gallery-item');
     const btns = document.querySelectorAll('.filter-btn');
     
-    // 1. Mise à jour visuelle des boutons
+    // 1. Mise à jour des boutons
     btns.forEach(btn => {
         btn.classList.remove('active');
         if (btn.getAttribute('onclick').includes(`'${category}'`)) {
@@ -367,31 +371,29 @@ function filterGallery(category) {
         }
     });
 
-    // 2. Logique de filtrage
+    // 2. Logique d'affichage
     items.forEach(item => {
+        // On commence par tout éteindre
+        item.classList.remove('show');
+
         if (category === 'all') {
-            // SI on est dans "Tout voir", on ne garde que les favoris
+            // On n'allume que la sélection "Tout voir"
             if (item.getAttribute('data-selection') === 'true') {
-                item.classList.remove('hide');
-            } else {
-                item.classList.add('hide');
+                item.classList.add('show');
             }
         } else {
-            // SINON, on affiche selon la catégorie (ex: 'ext', 'edv')
+            // On n'allume que la catégorie choisie
             if (item.classList.contains(category)) {
-                item.classList.remove('hide');
-            } else {
-                item.classList.add('hide');
+                item.classList.add('show');
             }
         }
     });
 }
 
-// Lancement au démarrage
-window.onload = () => filterGallery('all');
-// Optionnel : Lancer le filtre au chargement pour appliquer la limite de 6
-window.onload = () => filterGallery('all');
-        
+// Appel immédiat pour éviter d'attendre le chargement des images lourdes
+filterGallery('all');
+
+//calandrier 
 document.addEventListener('DOMContentLoaded', function() {
     var calendarEl = document.getElementById('calendar');
     
