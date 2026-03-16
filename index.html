@@ -252,7 +252,7 @@
     </section>
 
     <section style="background-color: white;">
-        <h2 class="section-title">Le Chalet en images</h2> 1.1 test
+        <h2 class="section-title">Le Chalet en images</h2> 1.2 test
         <div class="filter-container">
         <button class="filter-btn active" onclick="filterGallery('all')">Tout voir</button>
         <button class="filter-btn" onclick="filterGallery('edv')">Espace de vie</button>
@@ -261,22 +261,21 @@
     </div>
 
     <div class="gallery">
-        <div class="gallery-item edv"><img src="./image/edv/7saloncheminee.jpeg"></div>
-        <div class="gallery-item ext"><img src="./image/ext/1vue.jpeg"></div>
-        <div class="gallery-item ext"><img src="./image/ext/2chaletnord.jpeg" alt="ext"></div>
-        <div class="gallery-item ext"><img src="./image/ext/4vue.jpg"></div>
-        <div class="gallery-item ext"><img src="./image/ext/6chaletdenuit1.jpeg"></div>
-        <div class="gallery-item ext"><img src="./image/ext/46acceshiver.jpeg" alt="ext"></div>
-        <div class="gallery-item ext"><img src="./image/ext/48vuedrone.jpg"></div>
+        <div class="gallery-item ext"><img src="./image/ext/1vue.jpeg" alt="ext"></div>
+        <div class="gallery-item ext" data-selection="true"><img src="./image/ext/2chaletnord.jpeg" alt="ext"></div>
+        <div class="gallery-item ext"><img src="./image/ext/4vue.jpg" alt="ext"></div>
+        <div class="gallery-item ext"><img src="./image/ext/6chaletdenuit1.jpeg" alt="ext"></div>
+        <div class="gallery-item ext" data-selection="true"><img src="./image/ext/46acceshiver.jpeg" alt="ext"></div>
+        <div class="gallery-item ext"><img src="./image/ext/48vuedrone.jpg" alt="ext"></div>
 
-        <div class="gallery-item edv"><img src="./image/edv/7saloncheminee.jpeg"></div>
-        <div class="gallery-item edv"><img src="./image/edv/9cuisine.jpeg"></div>
-        <div class="gallery-item edv"><img src="./image/edv/11cuisine.jpeg"></div>
-        <div class="gallery-item edv"><img src="./image/edv/12salleamanger.jpg"></div>
-        <div class="gallery-item edv"><img src="./image/edv/14salon.jpeg" alt="edv"></div>
-        <div class="gallery-item edv"><img src="./image/edv/15salon.jpeg"></div>
-        <div class="gallery-item edv"><img src="./image/edv/43salledesport.jpeg"></div>
-        <div class="gallery-item edv"><img src="./image/edv/44skiroomgauche.jpeg"></div>
+        <div class="gallery-item edv" data-selection="true"><img src="./image/edv/7saloncheminee.jpeg" alt="edv"></div>
+        <div class="gallery-item edv"><img src="./image/edv/9cuisine.jpeg" alt="edv"></div>
+        <div class="gallery-item edv"><img src="./image/edv/11cuisine.jpeg" alt="edv"></div>
+        <div class="gallery-item edv"><img src="./image/edv/12salleamanger.jpg" alt="edv"></div>
+        <div class="gallery-item edv" data-selection="true"><img src="./image/edv/14salon.jpeg" alt="edv"></div>
+        <div class="gallery-item edv"><img src="./image/edv/15salon.jpeg" alt="edv"></div>
+        <div class="gallery-item edv"><img src="./image/edv/43salledesport.jpeg" alt="edv"></div>
+        <div class="gallery-item edv"><img src="./image/edv/44skiroomgauche.jpeg" alt="edv"></div>
         
         <div class="gallery-item edv"><img src="./image/interieur1.jpg" alt="Espace de vie"></div>
         <div class="gallery-item chb"><img src="./image/chambre1.jpg" alt="Chambre"></div>
@@ -342,41 +341,40 @@
     </section>
     
     <script>
-        function filterGallery(category) {
+       function filterGallery(category) {
     const items = document.querySelectorAll('.gallery-item');
     const btns = document.querySelectorAll('.filter-btn');
     
-    // 1. Gestion de l'état "actif" des boutons
+    // 1. Gestion des boutons actifs
     btns.forEach(btn => {
         btn.classList.remove('active');
-        // On vérifie si le texte du bouton ou son onclick correspond
         if (btn.getAttribute('onclick').includes(`'${category}'`)) {
             btn.classList.add('active');
         }
     });
 
-    // 2. Filtrage des images
-    let count = 0; // Compteur pour limiter à 6
-    
+    // 2. Logique de filtrage "Valise" (Sélection précise)
     items.forEach(item => {
-        // Condition pour afficher :
-        // Soit la catégorie correspond
-        // Soit c'est 'all' ET on n'a pas encore dépassé 6 images
         if (category === 'all') {
-            if (count < 6) {
+            // On vérifie si l'item a le marqueur "data-selection"
+            if (item.getAttribute('data-selection') === 'true') {
                 item.classList.remove('hide');
-                count++;
             } else {
                 item.classList.add('hide');
             }
-        } else if (item.classList.contains(category)) {
-            item.classList.remove('hide');
         } else {
-            item.classList.add('hide');
+            // Logique classique par catégorie
+            if (item.classList.contains(category)) {
+                item.classList.remove('hide');
+            } else {
+                item.classList.add('hide');
+            }
         }
     });
 }
 
+// Lancement au démarrage
+window.onload = () => filterGallery('all');
 // Optionnel : Lancer le filtre au chargement pour appliquer la limite de 6
 window.onload = () => filterGallery('all');
         
